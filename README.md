@@ -1,7 +1,7 @@
 # UpdateServicesClientDSC
 This Resource Module can be used to configure Windows Update Client settings. It's primary use case is non domain-joined computers and Nano Server. Althought it can also be used for domain-joined computers.
 
-The project adopted the license.
+The project adopted the MIT license.
 
 ## Installation
 To install the UpdateServicesClientDSC Module:
