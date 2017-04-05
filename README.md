@@ -25,6 +25,8 @@ To install the UpdateServicesClientDSC Module:
 
 ### 1.0.0.0
 * Initial release of UpdateServicesClientDSC
+### 1.1.0.0
+* New version to add 'All' as Daily Install option and fix AutoDownloadAndScheduleInstallation option as per issue.
 
 ## Examples
 
