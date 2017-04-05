@@ -248,7 +248,7 @@ function Set-UpdateScheduledInstallDay {
         'Sunday'    { $value = 1; break }
         'All'       { $value = 0; break }
     }
-    if ((Get-UpdateOption).Value -eq '4') {
+    if ((Get-UpdateOption).AutoUpdateOption -eq 'AutoDownloadAndScheduleInstallation') {
         if (testUpdateScheduledInstallDayExists) {
             Set-ItemProperty -Path $regPathAU -Name ScheduledInstallDay -Value $value -Force
         } else {
