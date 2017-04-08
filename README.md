@@ -16,7 +16,7 @@ To install the UpdateServicesClientDSC Module:
 * **`[String]` AutomaticUpdateOption** _(Write)_: Specify the update option. { NotifyBeforeDownload | AutoDownloadAndNotifyForInstall | AutoDownloadAndScheduleInstallation | UsersCanConfigureAutomaticUpdates }
 * **`[String]` UpdateServer** _(Write)_: Specify the URL of the WSUS server.
 * **`[String]` UpdateTargetGroup** _(Write)_: Specify the target group that the computer must belong to. (This is configured in the WSUS server).
-* **`[String]` ScheduledInstallDay** _(Write)_: Specify the day of the week that the computer is allowed to install updates. { Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday }
+* **`[String]` ScheduledInstallDay** _(Write)_: Specify the day of the week that the computer is allowed to install updates. { Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday | All }
 * **`[UInt32]` ScheduledInstallHour** _(Write)_: Specify the hour of the day that the computer is allowed to install updates.
 
 ## Versions
@@ -25,6 +25,8 @@ To install the UpdateServicesClientDSC Module:
 
 ### 1.0.0.0
 * Initial release of UpdateServicesClientDSC
+### 1.1.0.0
+* New version to add 'All' as Daily Install option and fix AutoDownloadAndScheduleInstallation option as per issue.
 
 ## Examples
 
@@ -45,6 +47,31 @@ configuration Sample_WindowsUpdateClient {
             AutomaticUpdateOption = 'AutoDownloadAndNotifyForInstall'
             UpdateServer = 'https://wsus01.dscdomain.local:8530'
             UpdateTargetGroup = 'test'
+        }
+    }
+}
+Sample_WindowsUpdateClient -OutputPath C:\temp
+Start-DSCConfiguration -Path C:\temp -Wait -Force -Verbose
+```
+
+### Example UpdateServicseClientDSC #2
+This configuration will configure the Windows Update settings and auto install patches each day at 18:00.
+
+```powershell
+configuration Sample_WindowsUpdateClient {
+
+    Import-DscResource -ModuleName UpdateServicesClientDSC
+
+    Node localhost {
+    
+        UpdateServicesClientDSC UpdateSettings {
+            Ensure = 'Present'
+            AutomaticUpdateEnabled = $true
+            AutomaticUpdateOption = 'AutoDownloadAndNotifyForInstall'
+            UpdateServer = 'https://wsus01.dscdomain.local:8530'
+            UpdateTargetGroup = 'test'
+			ScheduledInstallDay = "All"
+            ScheduledInstallHour = "18"
         }
     }
 }

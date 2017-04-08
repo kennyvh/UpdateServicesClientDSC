@@ -246,6 +246,7 @@ function Set-UpdateScheduledInstallDay {
         'Friday'    { $value = 6; break }
         'Saturday'  { $value = 7; break }
         'Sunday'    { $value = 1; break }
+        'All'       { $value = 0; break }
     }
     if ((Get-UpdateOption).Value -eq '4') {
         if (testUpdateScheduledInstallDayExists) {
@@ -266,6 +267,7 @@ function Get-UpdateScheduledInstallDay {
         $registryPath = ''
     }
     switch ($updateScheduleInstallDay.ScheduledInstallDay) {
+        0 { $value = 'All' }
         1 { $value = 'Sunday' }
         2 { $value = 'Monday' }
         3 { $value = 'Tuesday' }
