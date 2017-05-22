@@ -90,6 +90,9 @@ function Set-TargetResource
             if ($targetResource.AutomaticUpdateEnabled -ne $AutomaticUpdateEnabled) {
                 Write-Verbose "Changing setting 'Automatic Update' to Enabled"
                 Set-AutomaticUpdate -Enabled $true
+            } else {
+                Write-Verbose "Changing setting 'Automatic Update' to Disabled"
+                Set-AutomaticUpdate -Enabled $false
             }
         } else {
             Write-Verbose 'Removing Automatic Update setting'
@@ -207,27 +210,27 @@ function Test-TargetResource
         Write-Verbose "AutomaticUpdateEnabled is not set to $AutomaticUpdateEnabled"
         return $false
     }
-    if ($targetResource.AutomaticUpdateOption -ne $AutomaticUpdateOption)
+    if (($targetResource.AutomaticUpdateOption -ne $AutomaticUpdateOption) -and ($AutomaticUpdateEnabled -eq $true))
     {
         Write-Verbose "AutomaticUpdateOption is not set to $AutomaticUpdateOption"
         return $false
     }
-    if ($targetResource.UpdateServer -ne $UpdateServer) 
+    if (($targetResource.UpdateServer -ne $UpdateServer) -and ($AutomaticUpdateEnabled -eq $true))
     {
         Write-Verbose "UpdateServer is not set to $UpdateServer"
         return $false
     }
-    if ($targetResource.UpdateTargetGroup -ne $UpdateTargetGroup)
+    if (($targetResource.UpdateTargetGroup -ne $UpdateTargetGroup) -and ($AutomaticUpdateEnabled -eq $true))
     {
         Write-Verbose "UpdateTargetGroup is not set to $UpdateTargetGroup"
         return $false
     }
-    if ($targetResource.ScheduledInstallDay -ne $ScheduledInstallDay)
+    if (($targetResource.ScheduledInstallDay -ne $ScheduledInstallDay) -and ($AutomaticUpdateEnabled -eq $true))
     {
         Write-Verbose "ScheduledInstallDay is not set to $ScheduledInstallDay"
         return $false
     }
-    if ($targetResource.ScheduledInstallHour -ne $ScheduledInstallHour)
+    if (($targetResource.ScheduledInstallHour -ne $ScheduledInstallHour) -and ($AutomaticUpdateEnabled -eq $true))
     {
         Write-Verbose "ScheduledInstallHour is not set to $ScheduledInstallHour"
         return $false
