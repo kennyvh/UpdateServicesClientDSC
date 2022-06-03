@@ -235,7 +235,7 @@ function Remove-UpdateOption {
 function Set-UpdateScheduledInstallDay {
     param (
         [parameter(Mandatory=$true)]
-        [ValidateSet('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday')]
+        [ValidateSet('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday','All')]
         [string]$Day
     )
     switch ($day) {
